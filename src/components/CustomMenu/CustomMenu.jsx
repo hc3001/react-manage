@@ -14,6 +14,7 @@ class CustomMenu extends Component {
         let newStr = '',
             newArr = [],
             arr = string.split('/').map(i => '/' + i)
+        console.log('arr', arr)
         for (let i = 1; i < arr.length - 1; i++) {
             newStr += arr[i]
             newArr.push(newStr)
@@ -24,14 +25,16 @@ class CustomMenu extends Component {
     // 页面刷新的时候可以定位到 menu 显示
     componentDidMount() {
         let { pathname } = this.props.location
+        console.log('pathname', pathname)
         this.setState({
             selectedKeys: [pathname],
             openKeys: this.getOpenKeys(pathname)
         })
     }
 
-    // 点击面包屑导航时 侧边栏同步响应
+    // 点击面包屑导航时 侧边栏同步响应,数据更新时用
     componentDidUpdate(prevProps, prevState) {
+        console.log('prevProps', prevProps, prevState)
         let { pathname } = this.props.location
         if (prevProps.location.pathname !== pathname) {
             this.setState({
@@ -52,8 +55,9 @@ class CustomMenu extends Component {
 
         // 最新展开的 SubMenu
         const latestOpenKey = openKeys[openKeys.length - 1]
+        console.log('openKeyschange', openKeys, latestOpenKey)
 
-        // 这里与定义的路由规则有关
+        // 这里与定义的路由规则有关，如果展示某项的多级，最后一级，会包含最开始一级["/one", "/one/two"]
         if (latestOpenKey.includes(openKeys[0])) {
             this.setState({
                 openKeys
@@ -95,13 +99,17 @@ class CustomMenu extends Component {
 
     render() {
         let { openKeys, selectedKeys } = this.state
+        // console.log('openKeys', openKeys)
         return (
             <Menu
                 mode='inline'
                 theme='dark'
                 openKeys={openKeys}
                 selectedKeys={selectedKeys}
-                onClick={({ key }) => this.setState({ selectedKeys: [key] })}
+                onClick={({ key }) => {
+                    console.log('key', key)
+                    return this.setState({ selectedKeys: [key] })
+                }}
                 onOpenChange={this.onOpenChange}>
                 {this.props.menu &&
                     this.props.menu.map(item => {

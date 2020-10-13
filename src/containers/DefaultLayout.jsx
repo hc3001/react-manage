@@ -22,11 +22,13 @@ class DefaultLayout extends Component {
         menu: []
     }
 
+    //是否登录
     isLogin = () => {
         if (!localStorage.getItem('user')) {
             this.props.history.push('/login')
         } else {
             this.setState({
+                //获取菜单
                 menu: this.getMenu(menu)
             })
         }
@@ -79,8 +81,11 @@ class DefaultLayout extends Component {
         return (
             <Layout className='app'>
                 <BackTop />
+                {/*侧边栏*/}
                 <AppAside menuToggle={menuToggle} menu={this.state.menu} />
+                {/*右边栏*/}
                 <Layout style={{ marginLeft: menuToggle ? '80px' : '200px', minHeight: '100vh' }}>
+                    {/*右边头部*/}
                     <AppHeader
                         menuToggle={menuToggle}
                         menuClick={menuClick}
@@ -88,6 +93,7 @@ class DefaultLayout extends Component {
                         show={this.state.show}
                         loginOut={this.loginOut}
                     />
+                    {/*右边内容*/}
                     <Content className='content'>
                         <Switch>
                             {routes.map(item => {
@@ -111,6 +117,7 @@ class DefaultLayout extends Component {
                             <Redirect to='/404' />
                         </Switch>
                     </Content>
+                    {/*右边底部*/}
                     <AppFooter />
                 </Layout>
             </Layout>
@@ -128,9 +135,4 @@ const dispatchToProp = dispatch => ({
     }
 })
 
-export default withRouter(
-    connect(
-        stateToProp,
-        dispatchToProp
-    )(DefaultLayout)
-)
+export default withRouter(connect(stateToProp, dispatchToProp)(DefaultLayout))
