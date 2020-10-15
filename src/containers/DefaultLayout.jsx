@@ -8,6 +8,7 @@ import echarts from 'echarts/lib/echarts'
 import avatar from '@/assets/images/user.jpg'
 import menu from './menu'
 import '@/style/layout.scss'
+import utils from '../plugin/utils'
 
 import AppHeader from './AppHeader.jsx'
 import AppAside from './AppAside.jsx'
@@ -24,31 +25,20 @@ class DefaultLayout extends Component {
 
     //是否登录
     isLogin = () => {
-        if (!localStorage.getItem('user')) {
+        if (!utils.getCookie('token')) {
             this.props.history.push('/login')
         } else {
             this.setState({
                 //获取菜单
-                menu: this.getMenu(menu)
+                menu: menu
             })
         }
     }
 
     loginOut = () => {
         localStorage.clear()
-        console.log('kk', localStorage.getItem('user'))
         this.props.history.push('/login')
         message.success('登出成功!')
-    }
-    getMenu = menu => {
-        let newMenu,
-            auth = JSON.parse(localStorage.getItem('user')).auth
-        if (!auth) {
-            return menu
-        } else {
-            newMenu = menu.filter(res => res.auth && res.auth.indexOf(auth) !== -1)
-            return newMenu
-        }
     }
 
     componentDidMount() {

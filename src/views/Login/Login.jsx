@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Layout, Input, Icon, Form, Button, Divider, message, notification } from 'antd'
 import { withRouter } from 'react-router-dom'
-import axios from '@/api'
-// import { API } from '@/api/config'
+import * as loginRelate from '../../api'
+import utils from '../../plugin/utils'
+
 import '@/style/view-style/login.scss'
 
 class Login extends Component {
@@ -21,31 +22,19 @@ class Login extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let { username, password } = values
-                axios
-                    .get(`mock/5df9f2121919976716350b0a/tcl/user/login`, { username, password })
+                loginRelate
+                    .getLogin({ username, password })
                     .then(res => {
                         console.log('res', res)
-                        let data = res.data
-                        if (data && data.code === 0) {
-                            this.enterLoading()
-                            localStorage.setItem('user', JSON.stringify(data.ecdataToken))
-                            localStorage.setItem('token', JSON.stringify(data.ecdataToken))
-                            // this.props.history.push('/')
+                        if (res && res.token) {
+                            utils.setCookie('token', res.token)
+                            this.props.history.push('/')
                             message.success('登录成功!')
-                        } else {
-                            // 这里处理一些错误信息
                         }
                     })
-                    .catch(err => {})
-
-                // 这里可以做权限校验 模拟接口返回用户权限标识
-
-                // localStorage.setItem('user', JSON.stringify(values))
-                // this.enterLoading()
-                // this.timer = setTimeout(() => {
-                //     message.success('登录成功!')
-                //     this.props.history.push('/')
-                // }, 2000)
+                    .catch(err => {
+                        console.log(err)
+                    })
             }
         })
     }
