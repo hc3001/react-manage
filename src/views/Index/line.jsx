@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from '@/api'
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/component/tooltip'
@@ -8,9 +7,6 @@ import 'echarts/lib/component/legend'
 
 class Line extends Component {
     componentDidMount() {
-        axios.get('/mock/5df9f2121919976716350b0a/tcl/menulist-filter').then(res => {
-            console.log('res', res)
-        })
         let myChart = echarts.init(document.getElementById('line'))
         myChart.setOption({
             tooltip: {

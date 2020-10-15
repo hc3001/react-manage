@@ -1,4 +1,13 @@
 import axios from 'axios'
+import NProgress from 'nprogress'
+import { createHashHistory } from 'history'
+import 'nprogress/nprogress.css'
+NProgress.configure({ showSpinner: false })
+const history = createHashHistory()
+// 进度条
+console.log('history', history)
+// import {HashRouter} from 'react-router-dom'
+// const router = new HashRouter()
 
 // 这里取决于登录的时候将 token 存储在哪里
 const token = localStorage.getItem('token')
@@ -14,6 +23,7 @@ instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlenco
 instance.interceptors.request.use(
     config => {
         // 将 token 添加到请求头
+        NProgress.start()
         token && (config.headers.Authorization = token)
         return config
     },
@@ -26,6 +36,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     response => {
         if (response.status === 200) {
+            console.log('ttttt')
+            NProgress.done()
+            history.push('/public/button')
             return Promise.resolve(response)
         } else {
             return Promise.reject(response)
