@@ -36,7 +36,7 @@ class DefaultLayout extends Component {
     }
 
     loginOut = () => {
-        localStorage.clear()
+        utils.delCookie('token')
         this.props.history.push('/login')
         message.success('登出成功!')
     }
