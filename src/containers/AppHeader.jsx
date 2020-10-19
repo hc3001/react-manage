@@ -20,8 +20,8 @@ const AppHeader = props => {
                 </Menu.Item>
             </Menu.ItemGroup>
             <Menu.Divider />
-            <Menu.Item>
-                <span onClick={loginOut}>
+            <Menu.Item onClick={loginOut}>
+                <span>
                     <Icon type='logout' /> 退出登录
                 </span>
             </Menu.Item>
@@ -50,7 +50,7 @@ const AppHeader = props => {
                     </Badge>
                 </div>
                 <div>
-                    <Dropdown overlay={menu} overlayStyle={{ width: '20rem' }}>
+                    <Dropdown overlay={menu} trigger={['click']} overlayStyle={{ width: '20rem' }}>
                         <div className='ant-dropdown-link'>
                             <Avatar icon='user' src={avatar} alt='avatar' style={{ cursor: 'pointer' }} />
                         </div>

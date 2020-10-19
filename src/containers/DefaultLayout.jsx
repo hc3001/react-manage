@@ -8,7 +8,7 @@ import echarts from 'echarts/lib/echarts'
 import avatar from '@/assets/images/user.jpg'
 import menu from './menu'
 import '@/style/layout.scss'
-import utils from '../plugin/utils'
+import utils from '../utils/index'
 
 import AppHeader from './AppHeader.jsx'
 import AppAside from './AppAside.jsx'

@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import { createHashHistory } from 'history'
 import 'nprogress/nprogress.css'
 import { message } from 'antd'
-import utils from '../utils'
+import utils from '../../utils/index'
 
 NProgress.configure({ showSpinner: false })
 const history = createHashHistory()

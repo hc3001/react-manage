@@ -2,23 +2,21 @@ import React, { Component } from 'react'
 import { Layout, Input, Icon, Form, Button, Divider, message, notification } from 'antd'
 import { withRouter } from 'react-router-dom'
 import * as loginRelate from '../../api'
-import utils from '../../plugin/utils'
-
+import utils from '../../utils/index'
 import '@/style/view-style/login.scss'
 
 class Login extends Component {
     state = {
         loading: false
     }
-
-    enterLoading = () => {
+    changeLoading = state => {
         this.setState({
-            loading: true
+            loading: state
         })
     }
-
     handleSubmit = e => {
         e.preventDefault()
+        this.changeLoading(true)
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let { username, password } = values
@@ -28,6 +26,7 @@ class Login extends Component {
                         console.log('res', res)
                         if (res && res.token) {
                             utils.setCookie('token', res.token)
+                            this.changeLoading(false)
                             this.props.history.push('/')
                             message.success('登录成功!')
                         }
