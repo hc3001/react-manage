@@ -25,7 +25,7 @@ function errorLog(err) {
 }
 
 // 设置post请求头
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 // 添加请求拦截器
 instance.interceptors.request.use(

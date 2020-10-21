@@ -2,15 +2,16 @@ const menu = [
     {
         key: '/index',
         title: '首页',
-        icon: 'home',
-        auth: [1]
+        icon: 'home'
     },
     {
         title: '通用',
         key: '/public',
         icon: 'appstore',
-        auth: [1],
-        subs: [{ title: '按钮', key: '/public/button', icon: '' }, { title: '图标', key: '/public/icon', icon: '' }]
+        subs: [
+            { title: '按钮', key: '/public/button', icon: '' },
+            { title: '图标', key: '/public/icon', icon: '' }
+        ]
     },
     {
         title: '导航',
@@ -27,6 +28,7 @@ const menu = [
         key: '/form',
         icon: 'form',
         subs: [
+            { title: 'DEMO页面', key: '/form/demo-form', icon: '' },
             { title: '基础表单', key: '/form/base-form', icon: '' },
             { title: '步骤表单', key: '/form/step-form', icon: '' }
         ]
@@ -72,8 +74,7 @@ const menu = [
     {
         title: '关于',
         key: '/about',
-        icon: 'user',
-        auth: [1]
+        icon: 'user'
     }
 ]
 
